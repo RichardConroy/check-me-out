@@ -1,4 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/base')
+require 'pry'
 
 module Rule
 	class TotalGreaterThan < Rule::Base
@@ -12,8 +13,9 @@ module Rule
 		end
 
 		def process_eligibility checkout
-			if checkout.total > @discount_threshold
-				@price_adjustment = checkout.total * 0.1
+			if total_less_other_discounts(checkout) > @discount_threshold
+				# binding.pry
+				@price_adjustment = total_less_other_discounts(checkout) * 0.1
 				@eligible = true
 			else
 				@price_adjustment = 0
@@ -27,6 +29,15 @@ module Rule
 
 		def eligible?
 			@eligible
+		end
+
+		private 
+		def total_less_other_discounts checkout
+			checkout.product_total - total_discounts(checkout)
+		end
+
+		def total_discounts checkout
+			checkout.rules.reject{|r| r == self}.select(&:eligible?).inject(0){|sum,x| sum + x.price_adjustment }
 		end
 	end
 end

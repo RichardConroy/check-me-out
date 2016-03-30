@@ -36,7 +36,8 @@ module Rule
 		end
 
 		def lavender_hearts_count checkout
-			checkout.items.select{|item| item.code == '001' }.size
+			require_relative '../product'
+			checkout.items.select{|item| item.code == Product::LAVENDER_HEART }.size
 		end
 	end
 end

@@ -13,7 +13,11 @@ class Checkout
 	end
 
 	def total
-		@items.inject(0) {|sum,item| sum + item.price } - eligible_price_discounts
+		(product_total - eligible_price_discounts).round(2)
+	end
+
+	def product_total
+		@items.inject(0) {|sum,item| sum + item.price }
 	end
 
 	private
