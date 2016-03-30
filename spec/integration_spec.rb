@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 require 'checkout'
 require 'rule/total_greater_than'
+require 'rule/lavender_hearts'
 
 describe 'Integration Specs', type: :integration do
 	let(:item1) { double(:item1, price: 9.25, code: '001', name: 'Lavender Heart')}
@@ -9,7 +10,8 @@ describe 'Integration Specs', type: :integration do
 	let(:item3) { double(:item3, price: 19.95, code: '003', name: 'Kids T-shirt')}
 
 	let(:gtr60_rule) { Rule::TotalGreaterThan.new 60 }
-	let(:promotion_rules) { [gtr60_rule] }
+	let(:lavender_heart_rule) { Rule::LavenderHearts.new 2 }
+	let(:promotion_rules) { [gtr60_rule, lavender_heart_rule] }
 
 	let(:checkout) { Checkout.new promotion_rules}
 
