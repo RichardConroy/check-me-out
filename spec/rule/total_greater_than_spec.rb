@@ -10,11 +10,6 @@ describe Rule::TotalGreaterThan do
 	describe '#process_eligibility' do
 		let(:checkout) { double(:checkout, product_total: product_total, rules: promotion_rules)}
 		context 'checkout#total below threshold' do
-			it 'remains ineligible for discount' do
-				rule.process_eligibility checkout
-				expect(rule.eligible?).to be_false
-			end
-
 			it 'has a price_adjustment of zero' do
 				rule.process_eligibility checkout
 				expect(rule.price_adjustment).to eq 0
@@ -23,11 +18,6 @@ describe Rule::TotalGreaterThan do
 
 		context '#checkout#total above threshold' do
 			let(:product_total) { 100 }
-
-			it 'is eligible for discount' do
-				rule.process_eligibility checkout
-				expect(rule.eligible?).to be_true
-			end
 
 			it 'has a price_adjustment of 10% of checkout#total' do
 				rule.process_eligibility checkout

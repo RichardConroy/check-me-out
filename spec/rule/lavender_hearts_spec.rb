@@ -15,11 +15,6 @@ describe Rule::LavenderHearts do
 		let(:checkout) { double(:checkout, items: items )}
 
 		context 'empty checkout' do
-			it 'sets eligibility to false' do
-				rule.process_eligibility(checkout)
-				expect(rule.eligible?).to be_false
-			end
-
 			it 'sets price adjustment to zero' do
 				rule.process_eligibility(checkout)
 				expect(rule.price_adjustment).to eq 0
@@ -28,11 +23,6 @@ describe Rule::LavenderHearts do
 
 		context 'checkout contains enough lavender hearts for eligibility' do
 			let(:items) { [item1, item2, item1, item2] }
-
-			it 'sets eligibility to true' do
-				rule.process_eligibility(checkout)
-				expect(rule.eligible?).to be_true
-			end
 
 			it 'sets price adjustent to 0.75 x number of hearts' do
 				rule.process_eligibility(checkout)

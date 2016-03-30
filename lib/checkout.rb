@@ -22,7 +22,7 @@ class Checkout
 
 	private
 	def eligible_price_discounts
-		@rules.select(&:eligible?).inject(0) {|sum, rule| sum + rule.price_adjustment }
+		@rules.inject(0) {|sum, rule| sum + rule.price_adjustment }
 	end
 
 

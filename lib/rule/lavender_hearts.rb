@@ -1,5 +1,4 @@
 require File.expand_path(File.dirname(__FILE__) + '/base')
-require 'pry'
 
 module Rule
 	class LavenderHearts < Rule::Base
@@ -15,19 +14,13 @@ module Rule
 		def process_eligibility checkout
 			if sufficient_products_for_discount? checkout
 				@price_adjustment = lavender_hearts_count(checkout) * 0.75
-				@eligible = true
 			else
 				@price_adjustment = 0
-				@eligible = false
 			end
 		end
 
 		def price_adjustment
 			@price_adjustment
-		end
-
-		def eligible?
-			@eligible
 		end
 
 		private

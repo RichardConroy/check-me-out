@@ -11,9 +11,5 @@ module Rule
 		def price_adjustment
 			raise 'Override this'
 		end
-
-		def eligible?
-			raise 'Override this'
-		end
 	end
 end
